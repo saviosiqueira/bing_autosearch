@@ -10,7 +10,8 @@ const BING_AUTOSEARCH = {
       copy_autostart: document.getElementById("btn-autostart-copy")
     },
     select: {
-      limit: document.getElementById("slc-limit"),
+			limit: document.getElementById("slc-limit"),
+      limit_custom: document.getElementById("input-limit-custom"),
       interval: document.getElementById("slc-interval"),
       multitab: document.getElementById("slc-multitab"),
       random: document.getElementById("slc-random"),
@@ -62,12 +63,24 @@ const BING_AUTOSEARCH = {
           BING_AUTOSEARCH.elements.select.interval.value = BING_AUTOSEARCH.search.interval = parseInt(_search_interval.value.toString());
       }
 
-      if (!_search_limit.value) {
-        modal_help.show();
-        BING_AUTOSEARCH.localStorage.set("_search_limit", BING_AUTOSEARCH.search.limit.toString());
-      }
-      else {
-        BING_AUTOSEARCH.elements.select.limit.value = BING_AUTOSEARCH.search.limit = parseInt(_search_limit.value.toString());
+			if (!_search_limit.value) {
+				modal_help.show();
+				BING_AUTOSEARCH.localStorage.set("_search_limit", BING_AUTOSEARCH.search.limit.toString());
+			}
+			else {
+				const savedLimit = _search_limit.value.toString();
+				const standardOptions = ["5", "10", "20"];
+
+				if (standardOptions.includes(savedLimit)) {
+					BING_AUTOSEARCH.elements.select.limit.value = savedLimit;
+					BING_AUTOSEARCH.elements.select.limit_custom.style.display = "none";
+				} else {
+					BING_AUTOSEARCH.elements.select.limit.value = "custom";
+			    BING_AUTOSEARCH.elements.select.limit_custom.value = savedLimit;
+			    BING_AUTOSEARCH.elements.select.limit_custom.style.display = "block";
+				}
+				BING_AUTOSEARCH.search.limit = parseInt(savedLimit);
+				//BING_AUTOSEARCH.elements.select.limit.value = BING_AUTOSEARCH.search.limit = parseInt(_search_limit.value.toString());
       }
 
       if (!_randomized_intervals.value) {
@@ -516,8 +529,8 @@ const BING_AUTOSEARCH = {
         return terms[Math.floor(Math.random() * terms.length)];
       }
     },
-    limit: 30,
-    interval: 60000,
+    limit: 20,
+    interval: 10000,
     multitab: false,
     random: true,
     audio: false,
@@ -573,7 +586,7 @@ const BING_AUTOSEARCH = {
         timeouts.push(setTimeout(() => {
           BING_AUTOSEARCH.elements.span.progress.innerText = `(${i}/${BING_AUTOSEARCH.search.limit})`;
           document.title = `(${i}/${BING_AUTOSEARCH.search.limit})` + " - Bing Auto Search for Microsoft Rewards"
-            
+
           if (i === BING_AUTOSEARCH.search.limit) {
             timeouts.push(setTimeout(() => {
               BING_AUTOSEARCH.search.stop();
@@ -590,7 +603,7 @@ const BING_AUTOSEARCH = {
               BING_AUTOSEARCH.search.window.open(url, 10000);
             }
           }
-            
+
           // display countdown
           try {
             clearInterval(countdown);
@@ -623,7 +636,7 @@ const BING_AUTOSEARCH = {
       if(BING_AUTOSEARCH.search.audio) {
         BING_AUTOSEARCH.elements.span.silence.pause();
       }
-      window.open("https://rewards.bing.com/pointsbreakdown");
+      window.open("https://rewards.bing.com/earn");
       for (let i = 0; i < timeouts.length; i++) {
         try {
           clearInterval(timeouts[i]);
@@ -653,11 +666,23 @@ const BING_AUTOSEARCH = {
       BING_AUTOSEARCH.localStorage.set("_multitab_mode", BING_AUTOSEARCH.elements.select.multitab.value);
     });
 
-    BING_AUTOSEARCH.elements.select.limit.addEventListener("change", () => {
-      BING_AUTOSEARCH.localStorage.set("_search_limit", BING_AUTOSEARCH.elements.select.limit.value);
+		BING_AUTOSEARCH.elements.select.limit.addEventListener("change", (e) => {
+			if (e.target.value === "custom") {
+				BING_AUTOSEARCH.elements.select.limit_custom.style.display = "block";
+			} else {
+				BING_AUTOSEARCH.elements.select.limit_custom.style.display = "none";
+				BING_AUTOSEARCH.localStorage.set("_search_limit", e.target.value);
+			}
+			//BING_AUTOSEARCH.localStorage.set("_search_limit", BING_AUTOSEARCH.elements.select.limit.value);
     });
 
-    BING_AUTOSEARCH.elements.select.interval.addEventListener("change", () => {
+		BING_AUTOSEARCH.elements.select.limit_custom.addEventListener("input", (e) => {
+			if (e.target.value && parseInt(e.target.value) > 0) {
+				BING_AUTOSEARCH.localStorage.set("_search_limit", e.target.value);
+			}
+		});
+
+		BING_AUTOSEARCH.elements.select.interval.addEventListener("change", () => {
       BING_AUTOSEARCH.localStorage.set("_search_interval", BING_AUTOSEARCH.elements.select.interval.value);
     });
 
@@ -703,7 +728,7 @@ function testPopup() {
     if (timer === 0) {
       var popup = window.open("https://rewards.bing.com");
       BING_AUTOSEARCH.elements.link.multi_test.innerHTML = "Test <i class='fa-solid fa-arrow-right'></i>";
-      if (popup == null || typeof(popup)=='undefined') {  
+      if (popup == null || typeof(popup)=='undefined') {
         BING_AUTOSEARCH.elements.link.multi_test.innerHTML += "<span class='text-danger'>&nbsp;Failed.<br/>Please check your permissions.</span>";
       } else {
         BING_AUTOSEARCH.elements.link.multi_test.innerHTML += "<span class='text-success'>&nbsp;Success.</span>";
@@ -726,7 +751,7 @@ function getURLParameter(name) {
 }
 
 function getAutostartLink() {
-  var url = "https://autosearch.tailofleaves.dev?autostart=true";
+  var url = "https://autosearch.saviosiquera.top?autostart=true";
   url += "&limit=" + BING_AUTOSEARCH.search.limit.toString();
   url += "&interval=" + BING_AUTOSEARCH.search.interval.toString();
   url += "&random=" + BING_AUTOSEARCH.search.random.toString();

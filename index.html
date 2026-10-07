@@ -12,7 +12,7 @@
   <meta name="author" content="tailofleaves" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:url" content="https://autosearch.tailofleaves.dev" />
+  <meta property="og:url" content="https://autosearch.saviosiqueira.top" />
   <meta property="og:title" content="Bing Auto Search for Microsoft Rewards" />
   <meta property="og:site_name" content="Bing Auto Search for Microsoft Rewards" />
   <meta property="og:description" content="Browser-based Bing auto search bot to earn Microsoft Rewards points." />
@@ -40,6 +40,8 @@
     <header>
       <img src="img/rewards.png" alt="Microsoft Rewards" />
       <h2>Bing Auto Search for Microsoft Rewards</h2>
+      <p class="pt-3">Optimized for the newest version of Bing Rewards - Brazil Edition.</p>
+
     </header>
     <main>
       <div>
@@ -59,16 +61,17 @@
   </main>
   <footer>
     <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#modal-help">Need help? (Tutorial and Settings)</a><br />
-    <a href="https://rewards.bing.com/pointsbreakdown" target="_blank">Check Reward Points <i class="fa fa-external-link"></i></a>
+    <a href="https://rewards.bing.com/earn" target="_blank">Check Reward Points <i class="fa fa-external-link"></i></a>
     <p class="pt-3">This page is not affiliated with Microsoft, Rewards, Bing or Edge.</p>
     <p>
         <small>Warning! Using automation tools is against the <a href="https://www.microsoft.com/en-US/servicesagreement/#14l_MicrosoftRewards" target="_blank">Microsoft Rewards terms of use</a>. Your account may be suspended and/or banned, use this tool at your own risk.</small>
     </p>
     <small>Microsoft, Rewards, Bing and Edge are registered trademarks of Microsoft Corporation in the United States of America and elsewhere. The use on this page is for illustrative purposes only.</small>
     <hr />
-    <label>Site by</label>&nbsp;<a href="https://github.com/tailofleaves/bing_autosearch" target="_blank">tailofleaves</a><br />
+    <label>Site by</label>&nbsp;<a href="https://github.com/saviosiqueira/bing_autosearch" target="_blank">saviosiqueira</a><br />
+    <label>Forked from</label>&nbsp;<a href="https://github.com/tailofleaves/bing_autosearch" target="_blank">tailofleaves</a><br />
     <label>Original site by</label>&nbsp;<a href="https://github.com/gerisonsabino/bing_autosearch" target="_blank">Gérison Sabino</a><br />
-    <label>v1.2.7</label>
+    <label>v1.2.7-1</label>
   </footer>
   </section>
   <div class="modal fade" id="modal-help" tabindex="-1" aria-labelledby="modal-help" aria-hidden="true">
@@ -86,7 +89,7 @@
             <ol class="px-3 small">
               <li>Make sure you are signed into your <a href="https://bing.com" target="_blank">Bing</a> account.</li>
               <li>Start a new auto search by clicking the "Start Auto Search" button.</li>
-              <li>To perform mobile searches, use a mobile device or emulate a mobile browser through the developer tools (F12) on the PC.</li>
+              <li>To perform mobile searches, use a mobile device or emulate a mobile browser through the developer tools (F12) on the PC, or with an android emulator.</li>
             </ol>
           </div>
           <div>
@@ -95,16 +98,12 @@
             </h6>
             <div class="form-group">
               <select class="form-select" id="slc-limit">
+              	<option value="custom">Custom...</option>
                 <option value="5">5 searches</option>
                 <option value="10">10 searches</option>
-                <option value="20">20 searches</option>
-                <option value="25">25 searches</option>
-                <option value="30" selected="selected">30 searches (default)</option>
-                <option value="35">35 searches</option>
-                <option value="40">40 searches</option>
-                <option value="45">45 searches</option>
-                <option value="50">50 searches</option>
+                <option value="20" selected="selected">20 searches (default)</option>
               </select>
+              <input type="number" id="input-limit-custom" class="form-control mt-2" style="display:none;" placeholder="Enter a number of searches:" min="1">
             </div>
           </div>
           <div class="mt-2">
@@ -114,14 +113,10 @@
             <div class="form-group">
               <select class="form-select" id="slc-interval">
                 <option value="5000">5 seconds</option>
-                <option value="10000">10 seconds</option>
+                <option value="10000" selected="selected">10 seconds (Default)</option>
                 <option value="15000">15 seconds</option>
                 <option value="30000">30 seconds</option>
-                <option value="60000" selected="selected">1 minute (default)</option>
-                <option value="120000">2 minutes</option>
-                <option value="180000">3 minutes</option>
-                <option value="300000">5 minutes</option>
-                <option value="600000">10 minutes</option>
+                <option value="60000">1 minute</option>
                 <option value="900000">15 minutes</option>
               </select>
             </div>
