@@ -774,10 +774,10 @@ const copyAutostartLink = async () => {
 window.addEventListener("load", () => {
   BING_AUTOSEARCH.load();
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-ZXTCJY38CG');
+  //window.dataLayer = window.dataLayer || [];
+  //function gtag(){dataLayer.push(arguments);}
+  //gtag('js', new Date());
+	//gtag('config', 'G-ZXTCJY38CG');
 
   // initialize tooltips
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
